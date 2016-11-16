@@ -5,13 +5,13 @@
 	<title>Document</title>
 </head>
 <body>
-	<form action="/api/new" method="POST">
+	<form action="/api/new" method="POST" encType="multipart/form-data">
 	  RouteName:<br>
 	  <input type="text" name="routeName"><br>
 	  User name:<br>
 	  <input type="text" name="userName"><br>
-	  Image URL:<br>
-	  <input type="text" name="image">
+	  Image:<br>
+	  <input type="file" name="sampleFile"/>
 	  <input type="submit" value="Submit">
 
 	</form>
