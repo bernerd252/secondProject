@@ -38,7 +38,7 @@ var orm = {
 	addCleanup: function(cleanup, callback){
 
 		// Creating a routeName so its easy to search. 
-		var routeName = character.id.replace(/\s+/g, '').toLowerCase();
+		var routeName = cleanup.id.replace(/\s+/g, '').toLowerCase();
 		console.log(routeName);
 
 		var s = "INSERT INTO " + tableName + " (routeName, name, role, age, forcePoints) VALUES (?,?,?,?,?)";
