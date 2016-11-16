@@ -21,7 +21,7 @@ app.use(bodyParser.json({type:'application/vnd.api+json'}));
 // Routes
 // =============================================================
 
-// require("./app/routes/api-routes.js")(app)
+require("./app/routes/api-routes.js")(app)
 // require("./app/routes/html-routes.js")(app)
 
 
