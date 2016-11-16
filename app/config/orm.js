@@ -38,8 +38,12 @@ var orm = {
 	addCleanup: function(cleanup, callback){
 
 		// Creating a routeName so its easy to search. 
+
 		var routeName = cleanup.routeName.replace(/\s+/g, '').toLowerCase();
 		var userName = cleanup.userName.replace(/\s+/g, '').toLowerCase();
+
+
+		var routeName = cleanup.id.replace(/\s+/g, '').toLowerCase();
 
 		console.log(routeName);
 
