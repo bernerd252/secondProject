@@ -3,7 +3,7 @@ var connection = require('./connection.js');
 // ORM 
 // =============================================================
 
-var tableName = "cleanups";
+var tableName = "cleanupSites";
 
 var orm = {
 
@@ -38,13 +38,15 @@ var orm = {
 	addCleanup: function(cleanup, callback){
 
 		// Creating a routeName so its easy to search. 
-		var routeName = character.id.replace(/\s+/g, '').toLowerCase();
+		var routeName = cleanup.routeName.replace(/\s+/g, '').toLowerCase();
+		var userName = cleanup.userName.replace(/\s+/g, '').toLowerCase();
+
 		console.log(routeName);
 
-		var s = "INSERT INTO " + tableName + " (routeName, name, role, age, forcePoints) VALUES (?,?,?,?,?)";
+		var s = "INSERT INTO " + tableName + " (routeName, userName) VALUES (?,?)";
 
-		connection.query(s,[routeName, cleanup.userName, cleanup.siteLat, cleanup.siteLong, cleanup.date], function(err, result) {
-            
+		connection.query(s,[routeName, userName], function(err, result) {
+            console.log("Successfully pushed to database");
             callback(result);
 
         });

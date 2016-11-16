@@ -1,4 +1,4 @@
-var orm 			= require ("../config/orm.js");
+var orm = require ("../config/orm.js");
 
 
 // Routes
@@ -33,9 +33,10 @@ module.exports = function(app){
 
 		// Take the request...
 		var cleanup = req.body;
-
+		console.log(cleanup);
 		// Then send it to the ORM to "save" into the DB.
 		orm.addCleanup(cleanup, function(data){
+			res.send("Post request to database");
 		});
 
 	})
