@@ -1,70 +1,117 @@
-
-var orm 			= require ("../config/orm.js");
+var orm = require("../config/orm.js");
 var PNGImage = require('pngjs-image');
+var express = require('express');
+var fileUpload = require('express-fileupload');
+var Twitter = require('twitter');
 
+
+// Twitter API
+// =============================================================
+var keys = require("./keys.js")
+var client = new Twitter({
+  consumer_key: keys.twitterKeys.consumer_key,
+  consumer_secret: keys.twitterKeys.consumer_secret,
+  access_token_key: keys.twitterKeys.access_token_key,
+  access_token_secret: keys.twitterKeys.access_token_secret
+});
+
+var counter = 0;
 
 // Routes
 // =============================================================
-module.exports = function(app){
+module.exports = function(app) {
 
-	// Search for Specific Character (or all characters) then provides JSON
-	app.get('/api/:cleanups?', function(req, res){
-		console.log(req.body)
-		// If the user provides a specific character in the URL...
-		if(req.params.cleanups){
+    // Search for Specific Character (or all characters) then provides JSON
+    app.get('/api/:cleanups?', function(req, res) {
+        console.log(req.body)
+            // If the user provides a specific character in the URL...
+        if (req.params.cleanups) {
 
-			// Then display the JSON for ONLY that character.
-			// (Note how we're using the ORM here to run our searches)
-			orm.searchCleanup(req.params.cleanups,function(data){
-				res.json(data);
-			})
-		}
+            // Then display the JSON for ONLY that character.
+            // (Note how we're using the ORM here to run our searches)
+            orm.searchCleanup(req.params.cleanups, function(data) {
+                res.json(data);
+            })
+        }
 
-		// Otherwise...
-		else{
-			// Otherwise display the data for all of the characters. 
-			// (Note how we're using the ORM here to run our searches)
-			var data =  orm.allCleanups(function(data){
-				res.json(data); });
-			};
+        // Otherwise...
+        else {
+            // Otherwise display the data for all of the characters. 
+            // (Note how we're using the ORM here to run our searches)
+            var data = orm.allCleanups(function(data) {
+                res.json(data);
+            });
+        };
 
-	});
+    });
 
-	// If a user sends data to add a new character...
-	app.post('/api/new', function(req, res){
+    app.use(fileUpload());
 
-		// Take the request...
-		var cleanup = req.body;
-		console.log(cleanup);
-		// Then send it to the ORM to "save" into the DB.
-		orm.addCleanup(cleanup, function(data){
-			res.send("Post request to database");
-		});
+    // If a user sends data to add a new character...
+    app.post('/api/new', function(req, res) {
 
-		var image = PNGImage.createImage(100, 300);
- 
-		// Get width and height 
-		console.log(image.getWidth());
-		console.log(image.getHeight());
-		 
-		// Set a pixel at (20, 30) with red, having an alpha value of 100 (half-transparent) 
-		image.setAt(20, 30, { red:255, green:0, blue:0, alpha:100 });
-		 
-		// Get index of coordinate in the image buffer 
-		var index = image.getIndex(20, 30);
-		 
-		// Print the red color value 
-		console.log(image.getRed(index));
-		 
-		// Get low level image object with buffer from the 'pngjs' package 
-		var pngjs = image.getImage();
-		 
-		image.writeImage('../images', function (err) {
-		    if (err) throw err;
-		    console.log('Written to the file');
-		});
+        // Take the request...
+        var cleanup = req.body;
+        console.log(cleanup);
+        // Then send it to the ORM to "save" into the DB.
+        orm.addCleanup(cleanup, function(data) {
+            // res.send("Post request to database");
+        });
 
-	})
 
-	
+        var app = express();
+
+        // default options 
+
+        var sampleFile;
+
+        if (!req.files) {
+            res.send('No files were uploaded.');
+            return;
+        }
+
+        var picID = "pic" + counter + ".jpg";
+        sampleFile = req.files.sampleFile;
+        sampleFile.mv('./app/routes/images/' + picID, function(err) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.send('File uploaded!');
+            }
+        });
+        
+
+        var data = require('fs').readFileSync('./app/routes/images/' + picID);
+
+        // Make post request on media endpoint. Pass file data as media parameter
+        client.post('media/upload', { media: data }, function(error, media, response) {
+
+            if (!error) {
+
+                // If successful, a media object will be returned.
+                console.log(media);
+
+                // Lets tweet it
+                var status = {
+                    status: 'I am a tweet',
+                    media_ids: media.media_id_string // Pass the media id string
+                }
+
+                client.post('statuses/update', status, function(error, tweet, response) {
+                    if (!error) {
+                        console.log(tweet);
+                    }
+                });
+
+            }
+
+            else {
+                console.error(error);
+            }
+        });
+
+        counter++;
+    })
+
+
 }

@@ -42,9 +42,7 @@ var orm = {
 		var routeName = cleanup.routeName.replace(/\s+/g, '').toLowerCase();
 		var userName = cleanup.userName.replace(/\s+/g, '').toLowerCase();
 
-
-	
-
+		 
 		console.log(routeName);
 
 		var s = "INSERT INTO " + tableName + " (routeName, userName) VALUES (?,?)";
