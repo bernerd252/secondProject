@@ -43,7 +43,7 @@ var orm = {
 		var userName = cleanup.userName.replace(/\s+/g, '').toLowerCase();
 
 
-		var routeName = cleanup.id.replace(/\s+/g, '').toLowerCase();
+	
 
 		console.log(routeName);
 

@@ -59,7 +59,7 @@ module.exports = function(app){
 		// Get low level image object with buffer from the 'pngjs' package 
 		var pngjs = image.getImage();
 		 
-		image.writeImage('/images', function (err) {
+		image.writeImage('../images', function (err) {
 		    if (err) throw err;
 		    console.log('Written to the file');
 		});
