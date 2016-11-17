@@ -2,6 +2,20 @@ var orm = require("../config/orm.js");
 var PNGImage = require('pngjs-image');
 var express = require('express');
 var fileUpload = require('express-fileupload');
+var Twitter = require('twitter');
+
+
+// Twitter API
+// =============================================================
+
+var client = new Twitter({
+    consumer_key: '6GvMBkLDa6YQWNTzeQ2zb4CC7',
+    consumer_secret: 'Te4WA96rGv2ISypasGmQG65QaupoyDSShhuQcgtYq2RJTS8QUP',
+    access_token_key: '799057205119123456-PE3tV1pYtOEyDpUdV8i3P3UjjBJ0OTN',
+    access_token_secret: '03RvoJ1rHN7AmgiE6rsecJ4DXVCxIqTfywDmu6fSdbuH9'
+});
+
+var counter = 0;
 
 // Routes
 // =============================================================
@@ -43,29 +57,34 @@ module.exports = function(app) {
         orm.addCleanup(cleanup, function(data) {
             // res.send("Post request to database");
         });
-        
-        
+
+
         var app = express();
 
         // default options 
-        
 
+        var sampleFile;
 
-            var sampleFile;
+        if (!req.files) {
+            res.send('No files were uploaded.');
+            return;
+        }
 
-            if (!req.files) {
-                res.send('No files were uploaded.');
-                return;
+        var picID = "pic" + counter;
+        sampleFile = req.files.sampleFile;
+        sampleFile.mv('./app/routes/images/' + picID, function(err) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.send('File uploaded!');
             }
+        });
 
-            sampleFile = req.files.sampleFile;
-            sampleFile.mv('./app/routes/images/ahmed.jpg', function(err) {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.send('File uploaded!');
-                }
-            });
+        client.post('statuses/update', { status: 'I Love Twitter' }, function(error, tweet, response) {
+            if (error) throw error;
+            console.log(tweet); // Tweet body. 
+            // console.log(response); // Raw response object. 
+        });
 
 
     })
