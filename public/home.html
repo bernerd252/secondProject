@@ -13,35 +13,65 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
 <body>
+<br>
+  <!-- Modal Trigger -->
+  <a class="btn green accent-4" href="#modal1">Sign In</a>
+  <a class="btn green accent-4" href="#modal2">Sign Out</a>
+  <!-- Modal Structure -->
+ <!--  sign in modal code -->
+    <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Sign In</h4>
+<input id="userName" type="text" class="validate">
+<label class="active" for="userName">User Name</label>
+<input id="password" type="text" class="validate">
+<label class="active" for="password">Password</label>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sign In</a>
+    </div>
+  </div>
 
+<!-- sign out modal code -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h4>Sign Out</h4>
+      <p>Are you sure you want to sign out of your Litterbot account?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+    </div>
+  </div>
+<br>
 <div class="slider">
     <ul class="slides">
       <li>
         <img src="images/nature3.jpg"> 
         <div class="caption center-align">
           <h1 id="pic1">Litterbot</h1>
-          <h5>Get involved and cleanup your neighborhood one tweet at a time..</h5>
+          <h5>Get involved and cleanup your neighborhood one tweet at a time...</h5>
         </div>
       </li>
       <li>
         <img src="images/nature2.jpg"> 
         <div class="caption left-align">
           <h1 id="pic2">Litterbot</h1>
-          <h5>Get involved and cleanup your neighborhood one tweet at a time..</h5>
+          <h5>Get involved and cleanup your neighborhood one tweet at a time...</h5>
         </div>
       </li>
       <li>
         <img src="images/nature4.jpg"> <!-- random image -->
         <div class="caption right-align">
           <h1 id="pic3">Litterbot</h1>
-          <h5>Get involved and cleanup your neighborhood one tweet at a time..</h5>
+          <h5>Get involved and cleanup your neighborhood one tweet at a time...</h5>
         </div>
       </li>
       <li>
         <img src="images/nature1.jpg"> <!-- random image -->
         <div class="caption center-align">
           <h1 id="pic4">Litterbot</h1>
-          <h5>Get involved and cleanup your neighborhood one tweet at a time.</h5>
+          <h5>Get involved and cleanup your neighborhood one tweet at a time...</h5>
         </div>
       </li>
     </ul>
@@ -54,6 +84,12 @@
 <a id="findButton" class="btn-large green accent-4">Find A Cleanup Event</a>
 <a id="galleryButton" class="btn-large green accent-4">Gallery of Past Events</a>
 </div>
+<div id="btn2" class="container">
+  <a id="accountButton" class="btn-large green accent-4">Create A Litterbot Account</a>
+</div>
+
+<br>
+<br>
 
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
