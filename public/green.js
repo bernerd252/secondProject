@@ -12,4 +12,22 @@ $('.slider').slider('next');
 // Previous slide
 $('.slider').slider('prev');
       
+//go to upload page from home
+$( "#shareButton" ).click(function() {
+  window.location.href="upload.html";
+});
 
+//go to create event page from home page
+$( "#createButton" ).click(function() {
+  window.location.href="create.html";
+});
+
+//go to find a cleanup event page from home page
+$( "#findButton" ).click(function() {
+  window.location.href="find.html";
+});
+
+//go to gallery page from home
+$( "#galleryButton" ).click(function() {
+  window.location.href="gallery.html";
+});
