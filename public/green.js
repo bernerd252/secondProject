@@ -12,3 +12,4 @@ $('.slider').slider('next');
 // Previous slide
 $('.slider').slider('prev');
       
+
