@@ -1,0 +1,46 @@
+/*top line of buttons*/
+#btn1{
+	text-align: center;
+	margin-top: 25px;
+
+}
+
+/*second line of buttons*/
+#btn2{
+	text-align: center;
+	margin-top: 10px;
+}
+
+.btn{
+	color: black;
+}
+
+body{
+	/*background-color: #DAF2F7;*/
+	background-color:  #e8f7e8;
+}
+
+/*//title styling*/
+h1{
+	
+	font-family: 'Seymour One', sans-serif;
+	color: #153022;
+	background-color: #f0f9ef;
+	text-align: center;
+	opacity: .75;
+}
+
+/*caption styling*/
+h5{
+	font-family: 'Seymour One', sans-serif;
+	background-color: #f0f9ef;
+	color: #153022;
+	opacity: .70;
+
+}
+
+/*//buttons styling*/
+a{
+	font-family: 'Averia Gruesa Libre', cursive;
+
+}
