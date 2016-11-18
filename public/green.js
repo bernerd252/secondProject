@@ -31,3 +31,15 @@ $( "#findButton" ).click(function() {
 $( "#galleryButton" ).click(function() {
   window.location.href="gallery.html";
 });
+$( "#accountButton" ).click(function() {
+  window.location.href="account.html";
+});
+//go to create an account page from home page
+
+//code for the modals used to sign in and sign out
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+   $('#modal1').modal('open');
+    $('#modal1').modal('close');
