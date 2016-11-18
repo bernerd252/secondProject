@@ -2,7 +2,6 @@
 #btn1{
 	text-align: center;
 	margin-top: 25px;
-
 }
 
 /*second line of buttons*/
@@ -39,8 +38,21 @@ h5{
 
 }
 
+h4{
+	font-family: 'Ubuntu', sans-serif;
+	color: #3cbc4f;
+	text-align: center;
+	
+}
+
 /*//buttons styling*/
 a{
-	font-family: 'Averia Gruesa Libre', cursive;
+	font-family: 'Ubuntu', sans-serif;
+}
 
+/*//navbar*/
+.nav-wrapper{
+	padding: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: large;
 }
