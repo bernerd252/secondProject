@@ -4,6 +4,7 @@ var express = require('express');
 var fileUpload = require('express-fileupload');
 var Twitter = require('twitter');
 var Twit = require('twit');
+var fs = require('fs');
 
 
 // Twitter API
@@ -64,7 +65,7 @@ module.exports = function(app) {
         console.log(cleanup);
         // Then send it to the ORM to "save" into the DB.
         orm.addCleanup(cleanup, function(data) {
-        // res.send("Post request to database");
+            // res.send("Post request to database");
         });
 
 
@@ -79,44 +80,52 @@ module.exports = function(app) {
             return;
         }
 
-        var picID = req.location;
+        var picID = Date.now() + ".jpg";
+        var filePath = './app/routes/images/' + picID;
+        console.log("This is the pic ID: " + picID);
         sampleFile = req.files.upload_image_file;
-        sampleFile.mv('./app/routes/images/' + picID, function(err) {
+        sampleFile.mv(filePath, function(err) {
             if (err) {
                 res.status(500).send(err);
             } else {
                 res.send('File uploaded!');
             }
+            setTimeout(tweetContent, 10000);
+            // Delete the image after 24 hours
+            setTimeout(deleteImage, 86400000);
         });
 
 
-        var data = require('fs').readFileSync('./app/routes/images/something.jpg');
-        var imgSize = require('fs').statSync('./app/routes/images/something.jpg').size;
-
-        console.log("This is the file size: " + imgSize);
-
-        var filePath = './app/routes/images/something.jpg'
-        T.postMediaChunked({ file_path: filePath }, function(err, data, response) {
-            console.log(data)
-            var mediaIdStr = data.media_id_string
+        function tweetContent() {
+            T.postMediaChunked({ file_path: filePath }, function(err, data, response) {
+                console.log(data)
+                var mediaIdStr = data.media_id_string
                 var altText = "Image could not be loaded"
                 var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
 
                 T.post('media/metadata/create', meta_params, function(err, data, response) {
                     if (!err) {
                         // now we can reference the media and post a tweet (media will attach to the tweet) 
-                        var params = { status: 'Litter == bad', media_ids: [mediaIdStr] }
+                        var params = { status: cleanup.description, media_ids: [mediaIdStr] }
 
                         T.post('statuses/update', params, function(err, data, response) {
                             console.log(data)
                         })
-                    }
-
-                    else {
-                    	console.error(err);
+                    } else {
+                        console.error(err);
                     }
                 })
-        })
+            })
+        }
+
+        function deleteImage() {
+        	fs.unlink(filePath, function(err) {
+        		if (err) {
+        			console.error(err);
+        		}
+        	});
+        }
+
 
     });
 
