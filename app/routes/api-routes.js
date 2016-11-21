@@ -2,22 +2,12 @@ var orm = require("../config/orm.js");
 var PNGImage = require('pngjs-image');
 var express = require('express');
 var fileUpload = require('express-fileupload');
-var Twitter = require('twitter');
 var Twit = require('twit');
 var fs = require('fs');
 
 
 // Twitter API
 // =============================================================
-
-
-// var client = new Twitter({
-//     consumer_key: '3YQoTNAeLXqedFytaYsm7XAqv',
-//     consumer_secret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
-//     access_token_key: '799057205119123456-PE3tV1pYtOEyDpUdV8i3P3UjjBJ0OTN',
-//     access_token_secret: '03RvoJ1rHN7AmgiE6rsecJ4DXVCxIqTfywDmu6fSdbuH9'
-// });
-
 
 var T = new Twit({
     consumer_key: '3YQoTNAeLXqedFytaYsm7XAqv',
@@ -57,7 +47,7 @@ module.exports = function(app) {
 
     app.use(fileUpload());
 
-    // If a user sends data to add a new character...
+
     app.post('/upload', function(req, res) {
 
         // Take the request...
