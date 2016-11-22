@@ -22,8 +22,8 @@
     "express": "^4.14.0",
     "express-fileupload": "0.0.5",
     "mysql": "^2.12.0",
+    "passport-twitter": "^1.0.4",
     "path": "^0.12.7",
-    "pngjs-image": "^0.11.7",
-    "twitter": "^1.4.0"
+    "twit": "^2.2.5"
   }
 }
