@@ -1,11 +1,11 @@
 var orm = require("../config/orm.js");
-var PNGImage = require('pngjs-image');
 var express = require('express');
 var fileUpload = require('express-fileupload');
 var Twit = require('twit');
 var fs = require('fs');
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
+var path = require('path');
 
 
 // Twitter API
@@ -20,22 +20,13 @@ var T = new Twit({
 
 
 
-// Initialize Twitter Passport
-// =============================================================
 
-passport.use(new Strategy({
-    consumerKey: process.env.CONSUMER_KEY,
-    consumerSecret: process.env.CONSUMER_SECRET,
-    callbackURL: 'http://127.0.0.1:3000/login/twitter/return'
-  },
-  function(token, tokenSecret, profile, cb) {
-    // In this example, the user's Twitter profile is supplied as the user
-    // record.  In a production-quality application, the Twitter profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
-  }));
+
+
+
+
+
+
 
 // Routes
 // =============================================================
@@ -64,6 +55,74 @@ module.exports = function(app) {
         };
 
     });
+
+
+    // AUTHENTICATION
+
+
+    // Configure the Twitter strategy for use by Passport.
+    // =============================================================
+
+    passport.use(new Strategy({
+            consumerKey: '3YQoTNAeLXqedFytaYsm7XAqv',
+            consumerSecret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
+            callbackURL: 'http://localhost:8080/login/twitter/return'
+        },
+        function(token, tokenSecret, profile, cb) {
+            // In this example, the user's Twitter profile is supplied as the user
+            // record.  In a production-quality application, the Twitter profile should
+            // be associated with a user record in the application's database, which
+            // allows for account linking and authentication with other identity
+            // providers.
+            return cb(null, profile);
+        }));
+
+
+    // Configure Passport authenticated session persistence.
+    // =============================================================
+    passport.serializeUser(function(user, cb) {
+        cb(null, user);
+    });
+
+    passport.deserializeUser(function(obj, cb) {
+        cb(null, obj);
+    });
+
+
+    app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+    // Initialize Passport and restore authentication state, if any, from the
+    // session.
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+
+    app.get("/login", function(req, res) {
+        res.sendFile(path.join(__dirname, "/../public/home.html"));
+    });
+
+    // Initiate the Facebook Authentication
+    app.get("/login/twitter", passport.authenticate("twitter"));
+
+    // When Facebook is done, it uses the below route to determine where to go
+    app.get("/login/twitter/return",
+        passport.authenticate("twitter", { failureRedirect: "/login" }),
+
+        function(req, res) {
+            res.redirect("/upload");
+            console.log('USER authenticated');
+        });
+
+    // This page is available for viewing a hello message
+    app.get("/upload",
+        require("connect-ensure-login").ensureLoggedIn(),
+        function(req, res) {
+
+            res.sendFile(path.join(__dirname, "/../public/upload.html"));
+
+        });
+
+
+    // ===========================================
 
     app.use(fileUpload());
 
@@ -129,11 +188,11 @@ module.exports = function(app) {
         }
 
         function deleteImage() {
-        	fs.unlink(filePath, function(err) {
-        		if (err) {
-        			console.error(err);
-        		}
-        	});
+            fs.unlink(filePath, function(err) {
+                if (err) {
+                    console.error(err);
+                }
+            });
         }
 
 

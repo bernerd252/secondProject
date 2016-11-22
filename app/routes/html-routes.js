@@ -26,6 +26,11 @@ module.exports = function(app){
 
 	});
 
+	app.get('/account', function(req, res){
+		res.sendFile(path.join(__dirname + '/../public/account.html'));
+
+	});
+
 	app.get('/gallery', function(req, res){
 		res.sendFile(path.join(__dirname + '/../public/gallery.html'));
 
