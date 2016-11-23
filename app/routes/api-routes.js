@@ -113,13 +113,13 @@ module.exports = function(app) {
         });
 
     // This page is available for viewing a hello message
-    app.get("/upload",
-        require("connect-ensure-login").ensureLoggedIn(),
-        function(req, res) {
+    // app.get("/upload",
+    //     require("connect-ensure-login").ensureLoggedIn(),
+    //     function(req, res) {
 
-            res.sendFile(path.join(__dirname, "/../public/upload.html"));
+    //         res.sendFile(path.join(__dirname, "/../public/upload.html"));
 
-        });
+    //     });
 
 
     // ===========================================
