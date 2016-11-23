@@ -2,18 +2,155 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Organize an Event</title>
+	<title>Document</title>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+
+	<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+   
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+
 </head>
 <body>
-	<form action="/api/new" method="POST">
-	  First name:<br>
-	  <input type="text" name="firstname"><br>
-	  Last name:<br>
-	  <input type="text" name="lastname"><br>
-	  Image URL:<br>
-	  <input type="url" name="image">
-	  <input type="submit" value="Submit">
+<div class="container">
+  <div class="row">
+  <h1>Create Your Event</h1>
+    <form class="col s12" id="creatingEvent">
+    <!-- FIRST ROW -->
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="eventName" type="text" class="validate">
+          <label for="eventName">Event Name:</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="userName" type="text" class="validate">
+          <label for="userName">User Name:</label>
+        </div>
+      </div>
+      <!-- SECOND ROW -->
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" id="addressOne" class="validate">
+          <label for="addressOne">Address Line 1:</label>
+        </div>
+      </div>
+      <!-- THIRD ROW -->
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" id="addressTwo" class="validate" >
+          <label for="addressTwo">Address Line 2:</label>
+        </div>
+      </div>
 
-	</form>
+      <!-- FOURTH ROW -->
+      <div class="row">
+        <div class="input-field col m4 s12">
+          <input type="text" id="city" class="validate" >
+          <label for="city">City:</label>
+        </div>
+
+        <div class="input-field col m4 s12">
+          <input type="text" id="state" class="validate" >
+          <label for="state">State:</label>
+        </div>
+
+        <div class="input-field col m4 s12">
+          <input type="text" id="zipCode" class="validate" >
+          <label for="zipCode">Zip Code:</label>
+        </div>
+      </div>
+    <!-- FIFTH ROW -->
+      <div class="row">
+        <div class="input-field m6 col s12">
+          <input id="cleanupDate" type="text" class="validate">
+          <label for="cleanupDate">Clean Up Date:</label>
+        </div>
+        <div class="input-field m6 col s12">
+          <input id="cleanupTime" type="text" class="validate">
+          <label for="cleanupTime">Clean Up Time:</label>
+        </div>
+      </div>
+      <!-- SIXTH ROW -->
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="eventDescription" class="materialize-textarea" length="255"></textarea>
+          <label for="eventDescription">Event Description:</label>
+        </div>
+      </div>
+
+
+     <button class="btn waves-effect waves-light right" type="submit" name="action" id="submitBTN">Submit
+     <i class="material-icons right">send</i>
+     </button>    
+
+     </form>
+  </div>
+</div>
+
+<!-- POST (/EVENT):
+
+    - Converts the new event form into a JSON object. 
+    
+    - Then sends a POST request to to the POST route
+    
+    - The POST route then SAVES that event into the database.
+    
+    - The POST route then TWEETS that event
+        (This means that the POST route repackages the form input into a new "tweetable form")
+ -->
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  $( "#submitBTN" ).click(function(event) {
+
+    //prevents page from refreshing
+
+    event.preventDefault();
+    
+
+    //grabs information from form and stores them into an object
+    var newEvent = {
+        eventName: $('#eventName').val().trim(),
+        userName: $('#userName').val().trim(),
+        addressOne: $('#addressOne').val().trim(),
+        addressTwo: $('#addressTwo').val().trim(),
+        city: $('#city').val().trim(),
+        state: $('#state').val().trim(),
+        zipCode: $('#zipCode').val().trim(),
+        cleanupDate: $('#cleanupDate').val().trim(),
+        cleanupTime: $('#cleanupTime').val().trim(),
+        eventDescription: $('#eventDescription').val().trim(),
+          };
+
+    console.log(newEvent);
+
+    //clears form after submit
+    $('#creatingEvent input[type="text"]').val('');
+    $('#creatingEvent textarea').val('');
+
+//AJAX CALL THAT POSTS 
+          var currentURL = window.location.origin;
+
+          $.post(currentURL + "/api/eventsCreated", newEvent, function(data){
+            console.log(data);
+          }); //end POST 
+
+  });//end submitBTN
+
+
+}); //end document.ready
+
+
+
+</script>
+
 </body>
 </html>
