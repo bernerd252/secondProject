@@ -19,15 +19,6 @@ var T = new Twit({
 });
 
 
-
-
-
-
-
-
-
-
-
 // Routes
 // =============================================================
 module.exports = function(app) {
@@ -112,20 +103,30 @@ module.exports = function(app) {
             console.log('USER authenticated');
         });
 
-    // This page is available for viewing a hello message
-    // app.get("/upload",
-    //     require("connect-ensure-login").ensureLoggedIn(),
-    //     function(req, res) {
+    
+    app.get("/upload",
+        require("connect-ensure-login").ensureLoggedIn(),
+        function(req, res) {
 
-    //         res.sendFile(path.join(__dirname, "/../public/upload.html"));
+            res.sendFile(path.join(__dirname, "/../../public/upload.html"));
 
-    //     });
+        });
 
 
     // ===========================================
 
     app.use(fileUpload());
 
+
+    app.post('/api/eventscreated', function(req, res){
+
+        var eventCreated = req.body;
+
+        console.log(req.body);
+
+        orm.addEvent(eventCreated, function(data) {
+            res.json(data);
+        })
 
     app.post('/upload', function(req, res) {
 

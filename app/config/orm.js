@@ -52,6 +52,15 @@ var orm = {
 
 	}
 
+	addEvent: function(event, callback){
+
+		connection.query('INSERT INTO cleanupEvents (eventName, userName, addressOne, addressTwo, city, state, zipCode, cleanupDate, cleanupTime, eventDescription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [event.eventName, event.userName, event.addressOne, event.addressTwo, event.city, event.state, event.zipCode, event.cleanupDate, event.cleanupTime, event.eventDescription], function(err, result) {
+      			if (err) throw err;
+
+     			callback(result)
+    });
+	}
+
 
 };
 
