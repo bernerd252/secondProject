@@ -31,10 +31,20 @@ $( "#findButton" ).click(function() {
 $( "#galleryButton" ).click(function() {
   window.location.href="gallery.html";
 });
+//go to create an account page from home page
 $( "#accountButton" ).click(function() {
   window.location.href="account.html";
 });
-//go to create an account page from home page
+
+//text input materialize code
+
+  $(document).ready(function() {
+    Materialize.updateTextFields();
+  });
+
+   $('#textarea1').val('New Text');
+  $('#textarea1').trigger('autoresize');
+
 
 //code for the modals used to sign in and sign out
   $(document).ready(function(){
