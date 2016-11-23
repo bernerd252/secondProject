@@ -39,15 +39,12 @@ var orm = {
 
 		// Creating a routeName so its easy to search. 
 
-		var routeName = cleanup.routeName.replace(/\s+/g, '').toLowerCase();
-		var userName = cleanup.userName.replace(/\s+/g, '').toLowerCase();
-
-		 
-		console.log(routeName);
+		var location = cleanup.location.replace(/\s+/g, '').toLowerCase();
+		var description = cleanup.description.replace(/\s+/g, '').toLowerCase();
 
 		var s = "INSERT INTO " + tableName + " (routeName, userName) VALUES (?,?)";
 
-		connection.query(s,[routeName, userName], function(err, result) {
+		connection.query(s,[location, description], function(err, result) {
             console.log("Successfully pushed to database");
             callback(result);
 
