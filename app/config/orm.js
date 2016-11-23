@@ -50,7 +50,7 @@ var orm = {
 
         });
 
-	}
+	},
 
 	addEvent: function(event, callback){
 

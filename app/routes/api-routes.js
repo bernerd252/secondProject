@@ -128,6 +128,8 @@ module.exports = function(app) {
             res.json(data);
         })
 
+    });
+
     app.post('/upload', function(req, res) {
 
         // Take the request...
