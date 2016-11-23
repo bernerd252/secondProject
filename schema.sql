@@ -8,6 +8,7 @@ CREATE TABLE `cleanupSites` (
 	`siteLat` FLOAT(20, 18),
 	`siteLong` FLOAT( 20, 18),
 	`date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
 	
 	PRIMARY KEY ( `id` ) ); /* Set ID as primary key */
 
@@ -22,3 +23,12 @@ CREATE TABLE `cleanupsOrganised` (
 	`cleanupDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY ( `id` ) ); /* Set ID as primary key */
+
+
+
+
+id
+userName
+siteLat
+siteLong
+image url
