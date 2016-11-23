@@ -57,16 +57,29 @@
  </div> 
  <br>
 <div class="container">
-  <form action="#">
+  <form action="/upload" method="POST" encType="multipart/form-data">
     <div class="file-field input-field">
+
       <div class="btn green accent-4" id="upload">
         <span>Upload</span>
         <input type="file">
       </div>
+
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
+  </form>
+
+    <form action="/upload" method="POST" encType="multipart/form-data">
+    Location:<br>
+    <input type="text" name="location"><br>
+    Description:<br>
+    <input type="text" name="description"><br>
+    Image:<br>
+    <input type="file" name="upload_image_file"/>
+    <input type="submit" value="Submit">
+
   </form>
   </div>
   <br>
