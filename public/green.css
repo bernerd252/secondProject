@@ -49,8 +49,20 @@ h4{
 	color: #3cbc4f;
 	text-align: center;
 }
+
+#eventText{
+		font-family: 'Ubuntu', sans-serif;
+	color: #3cbc4f;
+	text-align: center;
+}
 h3{
 		font-family: 'Ubuntu', sans-serif;
+	color: #3cbc4f;
+	text-align: center;
+}
+
+p{
+			font-family: 'Ubuntu', sans-serif;
 	color: #3cbc4f;
 	text-align: center;
 }
