@@ -4,6 +4,7 @@ var connection = require('./connection.js');
 // =============================================================
 
 var tableName = "cleanupSites";
+var userTable = "userProfiles";
 
 var orm = {
 
@@ -59,6 +60,22 @@ var orm = {
 
      			callback(result)
     });
+	},
+
+	addUser: function(newUser) {
+		var userName = newUser.user_name.replace(/\s+/g, '').toLowerCase();
+		var fname = newUser.first_name.replace(/\s+/g, '').toLowerCase();
+		var lname = newUser.last_name.replace(/\s+/g, '').toLowerCase();
+		var email = newUser.email.replace(/\s+/g, '').toLowerCase();
+		var pwrd = newUser.password.replace(/\s+/g, '').toLowerCase();
+
+		var queryString = "INSERT INTO " + userTable + "(userName, firstName, lastName, email, password) VALUES (?, ?, ?, ?, ?)";
+
+		connection.query(queryString, [userName, fname, lname, email, pwrd], function(err, result) {
+			if (err) {
+				throw err;
+			}
+		})
 	}
 
 

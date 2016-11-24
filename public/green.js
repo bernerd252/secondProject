@@ -14,26 +14,26 @@ $('.slider').slider('prev');
       
 //go to upload page from home
 $( "#shareButton" ).click(function() {
-  window.location.href="upload.html";
+  window.location.href="upload";
 });
 
 //go to create event page from home page
 $( "#createButton" ).click(function() {
-  window.location.href="create.html";
+  window.location.href="create";
 });
 
 //go to find a cleanup event page from home page
 $( "#findButton" ).click(function() {
-  window.location.href="find.html";
+  window.location.href="find";
 });
 
 //go to gallery page from home
 $( "#galleryButton" ).click(function() {
-  window.location.href="gallery.html";
+  window.location.href="gallery";
 });
 //go to create an account page from home page
 $( "#accountButton" ).click(function() {
-  window.location.href="account.html";
+  window.location.href="account";
 });
 
 //text input materialize code

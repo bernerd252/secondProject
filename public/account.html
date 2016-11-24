@@ -17,12 +17,12 @@
 <!-- //nav bar -->
   <nav>
     <div class="nav-wrapper green accent-4">
-      <a href="#" class="brand-logo">Litterbot</a>
+      <a href="home" class="brand-logo">Litterbot</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="upload.html">Upload A Photo</a></li>
-        <li><a href="create.html">Create An Event</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="home">Home</a></li>
+        <li><a href="upload">Upload A Photo</a></li>
+        <li><a href="create">Create An Event</a></li>
+        <li><a href="gallery">Gallery</a></li>
       </ul>
     </div>
   </nav>
@@ -31,39 +31,42 @@
 <div class="container">
 <h4>Create a Litterbot Account</h4>
 <div class="row">
-    <form class="col s12">
+    <form class="col s12" action="/createUser" method="post">
       <div class="row">
         <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
+          <input name="first_name" type="text" class="validate">
           <label for="first">First Name</label>
         </div>
         <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
+          <input name="last_name" type="text" class="validate">
           <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
+          <input name="email" type="email" class="validate">
           <label for="email">Email</label>
         </div>
       </div>
   <div class="row">
     <div class="input-field col s6">
-      <input id="createUN" type="text" class="validate">
+      <input name="user_name" type="text" class="validate">
       <label class="active" for="createUN">Create A Username</label>
     </div>
 
     <div class="input-field col s6">
-      <input id="password" type="text" class="validate">
+      <input name="password" type="password" class="validate">
       <label class="active" for="password">Create A Password</label>
     </div>
 
+  <input type="submit">
   </div>
 
     </form>
   </div>
-  <a class="btn-large green accent-4">Create Litterbot Account</a>
+
+  <!-- 
+  <a class="btn-large green accent-4"><button type="submit" form="form1"> Create Litterbot Account</button></a> -->
   </div>
 
 

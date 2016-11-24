@@ -88,7 +88,7 @@ module.exports = function(app) {
 
 
     app.get("/login", function(req, res) {
-        res.sendFile(path.join(__dirname, "/../public/home.html"));
+        res.sendFile(path.join(__dirname, "/../../public/account.html"));
     });
 
     // Initiate the Facebook Authentication
@@ -99,7 +99,7 @@ module.exports = function(app) {
         passport.authenticate("twitter", { failureRedirect: "/login" }),
 
         function(req, res) {
-            res.redirect("/upload");
+            res.redirect("/home");
             console.log('USER authenticated');
         });
 
@@ -109,6 +109,14 @@ module.exports = function(app) {
         function(req, res) {
 
             res.sendFile(path.join(__dirname, "/../../public/upload.html"));
+
+        });
+
+    app.get("/create",
+        require("connect-ensure-login").ensureLoggedIn(),
+        function(req, res) {
+
+            res.sendFile(path.join(__dirname, "/../../public/create.html"));
 
         });
 
@@ -141,7 +149,7 @@ module.exports = function(app) {
         });
 
 
-        var app = express();
+        // var app = express();
 
         // default options 
 
@@ -199,5 +207,11 @@ module.exports = function(app) {
         }
 
     });
+
+    app.post("/createUser", function(req, res) {
+        var newUser = req.body;
+        orm.addUser(newUser);
+        res.redirect("/home")
+    })
 
 }
