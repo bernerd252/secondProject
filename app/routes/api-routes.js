@@ -6,9 +6,6 @@ var fs = require('fs');
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
-var mongoose = require('mongoose');
-var jwt = require('jsonwebtoken');
-var configMongo = ('../config/configMongo.js');
 var user = require('../models/user.js'); // get our mongoose model
 
 var StrategyLocal = require('passport-local').Strategy;
