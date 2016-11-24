@@ -6,6 +6,13 @@ var fs = require('fs');
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
+var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
+var configMongo = ('../config/configMongo.js');
+var user = require('../models/user.js'); // get our mongoose model
+
+var StrategyLocal = require('passport-local').Strategy;
+var db = require('../db');
 
 
 // Twitter API
@@ -48,7 +55,7 @@ module.exports = function(app) {
     });
 
 
-    // AUTHENTICATION
+    // TWITTER PASSPORT AUTHENTICATION
 
 
     // Configure the Twitter strategy for use by Passport.
@@ -79,7 +86,7 @@ module.exports = function(app) {
         cb(null, obj);
     });
 
-
+    app.use(require('cookie-parser')());
     app.use(require("express-session")({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
     // Initialize Passport and restore authentication state, if any, from the
     // session.
@@ -91,10 +98,10 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "/../../public/account.html"));
     });
 
-    // Initiate the Facebook Authentication
+    // Initiate the Twitter Authentication
     app.get("/login/twitter", passport.authenticate("twitter"));
 
-    // When Facebook is done, it uses the below route to determine where to go
+    // When Twitter is done, it uses the below route to determine where to go
     app.get("/login/twitter/return",
         passport.authenticate("twitter", { failureRedirect: "/login" }),
 
@@ -103,7 +110,7 @@ module.exports = function(app) {
             console.log('USER authenticated');
         });
 
-    
+
     app.get("/upload",
         require("connect-ensure-login").ensureLoggedIn(),
         function(req, res) {
@@ -123,10 +130,71 @@ module.exports = function(app) {
 
     // ===========================================
 
+
+    // LOCAL USER PASSPORT AUTHENTICATION
+
+    // Configure the local strategy for use by Passport.
+    //
+    // The local strategy require a `verify` function which receives the credentials
+    // (`username` and `password`) submitted by the user.  The function must verify
+    // that the password is correct and then invoke `cb` with a user object, which
+    // will be set at `req.user` in route handlers after authentication.
+    passport.use(new StrategyLocal(
+        function(username, password, cb) {
+            db.users.findByUsername(username, function(err, user) {
+                if (err) {
+                    return cb(err);
+                }
+                if (!user) {
+                    return cb(null, false);
+                }
+                if (user.password != password) {
+                    return cb(null, false);
+                }
+                return cb(null, user);
+            });
+        }));
+
+
+    // Configure Passport authenticated session persistence.
+    //
+    // In order to restore authentication state across HTTP requests, Passport needs
+    // to serialize users into and deserialize users out of the session.  The
+    // typical implementation of this is as simple as supplying the user ID when
+    // serializing, and querying the user record by ID from the database when
+    // deserializing.
+    passport.serializeUser(function(user, cb) {
+        cb(null, user.id);
+    });
+
+    passport.deserializeUser(function(id, cb) {
+        db.users.findById(id, function(err, user) {
+            if (err) {
+                return cb(err);
+            }
+            cb(null, user);
+        });
+    });
+
+
+    app.post('/login/local',
+        passport.authenticate('local', { failureRedirect: '/login' }),
+        function(req, res) {
+            res.redirect('/');
+        });
+
+    app.get('/logout',
+        function(req, res) {
+            req.logout();
+            res.redirect('/');
+        });
+
+    // ===========================================
+
     app.use(fileUpload());
 
 
-    app.post('/api/eventscreated', function(req, res){
+    app.post('/api/eventscreated', function(req, res) {
 
         var eventCreated = req.body;
 
@@ -213,5 +281,6 @@ module.exports = function(app) {
         orm.addUser(newUser);
         res.redirect("/home")
     })
+
 
 }
