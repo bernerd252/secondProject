@@ -32,16 +32,12 @@ exports.findByUsername = function(username, cb) {
         var record = orm.findUser(username, searchUser);
 
         console.log("Record prints: " + record);
-        function searchUser(num) {
 
             if (record.userName === username) {
                 return cb(null, record);
             }
-
-            return cb(null, null);
-            
+            return cb(null, null);   
         }
-        setTimeout(searchUser, 5000);
 
     });
 
