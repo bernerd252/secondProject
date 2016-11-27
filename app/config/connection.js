@@ -6,8 +6,8 @@ var source = {
         port: 3306,
         host: 'localhost',
         user: 'root',
-        password: "desmond22",
-        database: "cleanups"
+        password: "",
+        database: "burgers_db"
     },
 
     jawsDB: {
@@ -20,7 +20,7 @@ var source = {
     }
 }
 
-var connection = mysql.createConnection(source.jawsDB);
+var connection = mysql.createConnection(source.localhost);
 
 
 connection.connect(function(err) {

@@ -38,8 +38,6 @@ var orm = {
 
     addCleanup: function(cleanup, callback) {
 
-        // Creating a routeName so its easy to search. 
-
         var location = cleanup.location.replace(/\s+/g, '').toLowerCase();
         var description = cleanup.description.replace(/\s+/g, '').toLowerCase();
 
@@ -78,18 +76,19 @@ var orm = {
         })
     },
 
-    findUser: function(username) {
+    findUser: function(username, callback) {
 
-        var queryString = "SELECT * FROM " + userTable + " WHERE (userName) = ?";
+        var queryString = "SELECT * FROM " + "users" + " WHERE (username) = ?";
         connection.query(queryString, [username], function(err, result) {
             if (err) {
                 throw err;
             }
 
             console.log(result[0]);
-            return(result[0]);
+            callback(result[0]);
+        });
 
-        })
+        
 
     }
 

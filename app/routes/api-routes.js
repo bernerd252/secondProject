@@ -6,7 +6,7 @@ var fs = require('fs');
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
-var user = require('../models/user.js'); // get our mongoose model
+
 
 var StrategyLocal = require('passport-local').Strategy;
 var db = require('../db');
@@ -146,6 +146,7 @@ module.exports = function(app) {
                     return cb(null, false);
                 }
                 if (user.password != password) {
+                    console.log("User not logged in");
                     return cb(null, false);
                 }
                 return cb(null, user);
@@ -161,11 +162,12 @@ module.exports = function(app) {
     // serializing, and querying the user record by ID from the database when
     // deserializing.
     passport.serializeUser(function(user, cb) {
-        cb(null, user.id);
+        console.log("user logged in");
+        cb(null, user.username);
     });
 
-    passport.deserializeUser(function(id, cb) {
-        db.users.findById(id, function(err, user) {
+    passport.deserializeUser(function(username, cb) {
+        db.users.findByUsername(username, function(err, user) {
             if (err) {
                 return cb(err);
             }
