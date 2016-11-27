@@ -277,8 +277,14 @@ module.exports = function(app) {
 
     app.post("/createUser", function(req, res) {
         var newUser = req.body;
-        orm.addUser(newUser);
-        res.redirect("/home")
+        if (!newUser.first_name || !newUser.last_name || !newUser.email || !newUser.user_name || !newUser.password) {
+            res.redirect("/login");
+        }
+        else{
+            orm.addUser(newUser);
+            res.redirect("/home")    
+        }
+        
     })
 
 
