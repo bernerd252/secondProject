@@ -60,17 +60,16 @@
   var marker = new google.maps.Marker({position:myCenter});
   marker.setMap(map);
 
-  module.exports = function(app) {
+  app.get('/api/cleanups', function(req, res){
+    res.json(cleanups);
+    console.log(res)
 
-    // Search for Specific Character (or all characters) then provides JSON
-    app.get('/api/:cleanups?', function(req, res){
-      console.log(req.body)
-    });
+  });
 
 
-}
- });
-  }
+});
+ }
+  
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1z4D8_qAlnNA6PDoT8UrYOjhajWyP1Y"></script>

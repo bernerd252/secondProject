@@ -41,13 +41,13 @@ module.exports = function(app) {
         }
 
         // Otherwise...
-        else {
-            // Otherwise display the data for all of the characters. 
-            // (Note how we're using the ORM here to run our searches)
-            var data = orm.allCleanups(function(data) {
-                res.json(data);
-            });
-        };
+        // else {
+        //     // Otherwise display the data for all of the characters. 
+        //     // (Note how we're using the ORM here to run our searches)
+        //     var data = orm.allCleanups(function(data) {
+        //         res.json(data);
+        //     });
+        // };
 
     });
 
