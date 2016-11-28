@@ -78,7 +78,7 @@ var orm = {
 
     findUser: function(username, callback) {
 
-        var queryString = "SELECT * FROM " + "users" + " WHERE (username) = ?";
+        var queryString = "SELECT * FROM " + userTable + " WHERE (username) = ?";
         connection.query(queryString, [username], function(err, result) {
             if (err) {
                 throw err;

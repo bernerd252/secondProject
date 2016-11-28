@@ -1,88 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Create An Event</title>
-	<title>Home Page</title>
-	<link rel="stylesheet" type="text/css" href="green.css">
-<!-- 	google fonts -->
-<link href="https://fonts.googleapis.com/css?family=Arya|Averia+Gruesa+Libre|Crete+Round|Delius+Unicase|Goblin+One|Montserrat|Seymour+One" rel="stylesheet">
-	<!-- 	//materialize -->
-	<!-- Compiled and minified CSS -->
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+
+  <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+   
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+
 </head>
 <body>
-
-<!-- //nav bar -->
-  <nav>
-    <div class="nav-wrapper green accent-4">
-      <a href="home" class="brand-logo">Litterbot</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="home">Home</a></li>
-        <li><a href="upload">Upload A Photo</a></li>
-        <li><a href="create">Create An Event</a></li>
-        <li><a href="gallery">Gallery</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h4>Create a clean up event.</h4>
-  </div>
-  <div class="container">
-<div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="user_name" type="text" class="validate">
-          <label for="user_name">User Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="password" type="text" class="validate">
-          <label for="password">Password</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="email" type="email" class="validate">
-          <label for="email">Email</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="eventName" type="email" class="validate">
-          <label for="eventName">Your Event Name</label>
-        </div>
-      </div>
-    </form>
-
+<div class="container">
   <div class="row">
-    <form class="col s12">
+  <h1>Create Your Event</h1>
+    <form class="col s12" id="creatingEvent">
+    <!-- FIRST ROW -->
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="eventName" type="text" class="validate">
+          <label for="eventName">Event Name:</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="userName" type="text" class="validate">
+          <label for="userName">User Name:</label>
+        </div>
+      </div>
+      <!-- SECOND ROW -->
       <div class="row">
         <div class="input-field col s12">
-        <h5 id="eventText">Enter any additional details of your event you would like to share.</h5>
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1"></label>
+          <input type="text" id="addressOne" class="validate">
+          <label for="addressOne">Address Line 1:</label>
         </div>
       </div>
-    </form>
-  </div>
-  </div>
-  </div>
+      <!-- THIRD ROW -->
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" id="addressTwo" class="validate" >
+          <label for="addressTwo">Address Line 2:</label>
+        </div>
+      </div>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-  <script type="text/javascript" src="green.js"></script>
+      <!-- FOURTH ROW -->
+      <div class="row">
+        <div class="input-field col m4 s12">
+          <input type="text" id="city" class="validate" >
+          <label for="city">City:</label>
+        </div>
+
+        <div class="input-field col m4 s12">
+          <input type="text" id="state" class="validate" >
+          <label for="state">State:</label>
+        </div>
+
+        <div class="input-field col m4 s12">
+          <input type="text" id="zipCode" class="validate" >
+          <label for="zipCode">Zip Code:</label>
+        </div>
+      </div>
+    <!-- FIFTH ROW -->
+      <div class="row">
+        <div class="input-field m6 col s12">
+          <input id="cleanupDate" type="text" class="validate">
+          <label for="cleanupDate">Clean Up Date:</label>
+        </div>
+        <div class="input-field m6 col s12">
+          <input id="cleanupTime" type="text" class="validate">
+          <label for="cleanupTime">Clean Up Time:</label>
+        </div>
+      </div>
+      <!-- SIXTH ROW -->
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="eventDescription" class="materialize-textarea" length="255"></textarea>
+          <label for="eventDescription">Event Description:</label>
+        </div>
+      </div>
+
+
+     <button class="btn waves-effect waves-light right" type="submit" name="action" id="submitBTN">Submit
+     <i class="material-icons right">send</i>
+     </button>    
+
+     </form>
+  </div>
+</div>
+
+<!-- POST (/EVENT):
+    - Converts the new event form into a JSON object. 
+    
+    - Then sends a POST request to to the POST route
+    
+    - The POST route then SAVES that event into the database.
+    
+    - The POST route then TWEETS that event
+        (This means that the POST route repackages the form input into a new "tweetable form")
+ -->
+
+<script type="text/javascript">
+$( document ).ready(function() {
+  $( "#submitBTN" ).click(function(event) {
+    //prevents page from refreshing
+    event.preventDefault();
+    
+    //grabs information from form and stores them into an object
+    var newEvent = {
+        eventName: $('#eventName').val().trim(),
+        userName: $('#userName').val().trim(),
+        addressOne: $('#addressOne').val().trim(),
+        addressTwo: $('#addressTwo').val().trim(),
+        city: $('#city').val().trim(),
+        state: $('#state').val().trim(),
+        zipCode: $('#zipCode').val().trim(),
+        cleanupDate: $('#cleanupDate').val().trim(),
+        cleanupTime: $('#cleanupTime').val().trim(),
+        eventDescription: $('#eventDescription').val().trim(),
+          };
+    console.log(newEvent);
+    //clears form after submit
+    $('#creatingEvent input[type="text"]').val('');
+    $('#creatingEvent textarea').val('');
+//AJAX CALL THAT POSTS 
+          var currentURL = window.location.origin;
+          $.post(currentURL + "/api/eventsCreated", newEvent, function(data){
+            console.log(data);
+          }); //end POST 
+  });//end submitBTN
+}); //end document.ready
+</script>
+
 </body>
 </html>

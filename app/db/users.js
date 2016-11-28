@@ -19,9 +19,8 @@ exports.findById = function(id, cb) {
 exports.findByUsername = function(username, cb) {
     process.nextTick(function() {
         orm.findUser(username, function(data) {
-        	console.log("Record prints: " + data.username);
-        	//  SWITCH THIS TO data.userName <-------------------------------
-            if (data.username === username) {
+        	console.log("Record prints: " + data.userName);
+            if (data.userName === username) {
                 return cb(null, data);
             }
             return cb(null, null);

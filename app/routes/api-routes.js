@@ -245,7 +245,7 @@ module.exports = function(app) {
 
         function tweetContent() {
             T.postMediaChunked({ file_path: filePath }, function(err, data, response) {
-                console.log(data)
+                console.log("this is the file path: " + filePath)
                 var mediaIdStr = data.media_id_string
                 var altText = "Image could not be loaded"
                 var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
@@ -285,7 +285,7 @@ module.exports = function(app) {
             res.redirect("/home")    
         }
         
-    })
+    });
 
 
 }
