@@ -59,7 +59,13 @@
   var marker = new google.maps.Marker({position:myCenter});
   marker.setMap(map);
 
- 
+  module.exports = function(app) {
+
+    // Search for Specific Character (or all characters) then provides JSON
+    app.get('/api/:cleanups?', function(req, res){
+      console.log(req.body)
+    }
+
 
 });
  }
