@@ -1,24 +1,32 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.js"
-  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-  crossorigin="anonymous"></script>
-
+  <title>Create an Event</title>
+  <link rel="stylesheet" type="text/css" href="green.css">
+<!--  google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Arya|Averia+Gruesa+Libre|Crete+Round|Delius+Unicase|Goblin+One|Montserrat|Seymour+One" rel="stylesheet">
+  <!--  //materialize -->
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-   
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
-
 </head>
 <body>
+<!-- //nav bar -->
+  <nav>
+    <div class="nav-wrapper green accent-4">
+      <a href="home" class="brand-logo">Litterbot</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="home">Home</a></li>
+        <li><a href="upload">Upload A Photo</a></li>
+        <li><a href="create">Create An Event</a></li>
+        <li><a href="gallery">Gallery</a></li>
+      </ul>
+    </div>
+  </nav>
+
 <div class="container">
   <div class="row">
   <h1>Create Your Event</h1>
@@ -104,7 +112,9 @@
     - The POST route then TWEETS that event
         (This means that the POST route repackages the form input into a new "tweetable form")
  -->
-
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <script type="text/javascript" src="green.js"></script>
 <script type="text/javascript">
 $( document ).ready(function() {
   $( "#submitBTN" ).click(function(event) {
