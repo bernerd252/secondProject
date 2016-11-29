@@ -54,12 +54,14 @@
        var userLng = parseFloat(lng);
       
   var myCenter = new google.maps.LatLng(userLat,userLng);
+   var myCenter2 = new google.maps.LatLng(40,-74);
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 5};
   var map = new google.maps.Map(mapCanvas, mapOptions);
   var marker = new google.maps.Marker({position:myCenter});
   marker.setMap(map);
-
+  var marker2 = new google.maps.Marker({position:myCenter2});
+marker2.setMap(map);
   app.get('/api/cleanups', function(req, res){
     res.json(cleanups);
     console.log(res)
