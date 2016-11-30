@@ -51,7 +51,7 @@ module.exports = function(app) {
 
     });
 
-    app.post('/api/cleanupEvents', function(req, res){
+    app.post('/api/eventsCreated', function(req, res){
         console.log(req.body)
     });
 
