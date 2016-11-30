@@ -51,6 +51,11 @@ module.exports = function(app) {
 
     });
 
+    app.post('/api/cleanupEvents', function(req, res){
+        console.log(req.body)
+    });
+
+
 
     // TWITTER PASSPORT AUTHENTICATION
 
@@ -286,6 +291,8 @@ module.exports = function(app) {
         }
         
     });
+
+
 
 
 }

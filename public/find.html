@@ -4,6 +4,7 @@
 	<title>Find A Cleanup Event</title>
 	<title>Home Page</title>
 	<link rel="stylesheet" type="text/css" href="green.css">
+  <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
 <!-- 	google fonts -->
 <link href="https://fonts.googleapis.com/css?family=Arya|Averia+Gruesa+Libre|Crete+Round|Delius+Unicase|Goblin+One|Montserrat|Seymour+One" rel="stylesheet">
 	<!-- 	//materialize -->
@@ -38,12 +39,16 @@
 
   <script type="text/javascript" src="green.js"></script>
  
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
  
 <script type="text/javascript">
-// var express = require('express');
+ var currentURL = window.location.origin;
 
- var latLng = [];
+  $.get(currentURL + "/api/cleanupEvents", function(res, req){
+    console.log(res)
+    console.log(req)
+  });
+  
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
