@@ -35,7 +35,7 @@ module.exports = function(app) {
 
             // Then display the JSON for ONLY that character.
             // (Note how we're using the ORM here to run our searches)
-            orm.searchCleanup(req.params.cleanups, function(data) {
+            orm.searchCleanups(req.params.cleanups, function(data) {
                 res.json(data);
             })
         }
