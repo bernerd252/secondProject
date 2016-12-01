@@ -6,11 +6,8 @@ var fs = require('fs');
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var path = require('path');
-
-
 var StrategyLocal = require('passport-local').Strategy;
 var db = require('../db');
-
 
 // Twitter API
 // =============================================================
@@ -22,40 +19,29 @@ var T = new Twit({
 
 });
 
-
 // Routes
 // =============================================================
 module.exports = function(app) {
 
     // Search for Specific Character (or all characters) then provides JSON
-    app.get('/api/:cleanups?', function(req, res) {
-        console.log(req.body)
+    // app.get('/api/:cleanups?', function(req, res) {
+    //     console.log(req.body)
             // If the user provides a specific character in the URL...
-        if (req.params.cleanups) {
+        // if (req.params.cleanups) {
 
             // Then display the JSON for ONLY that character.
             // (Note how we're using the ORM here to run our searches)
-            orm.searchCleanups(req.params.cleanups, function(data) {
-                res.json(data);
-            })
-        }
+    //         orm.searchCleanup(req.params.cleanups, function(data) {
+    //             res.json(data);
+    //         })
+    //     }
 
-        // Otherwise...
-        // else {
-        //     // Otherwise display the data for all of the characters. 
-        //     // (Note how we're using the ORM here to run our searches)
-        //     var data = orm.allCleanups(function(data) {
-        //         res.json(data);
-        //     });
-        // };
-
+    // });
+    app.get('/api/eventsCreated', function(req, res) {
+        orm.events(function(data) {
+            res.json(data);
+        })
     });
-
-    app.post('/api/eventsCreated', function(req, res){
-        console.log(req.body)
-    });
-
-
 
     // TWITTER PASSPORT AUTHENTICATION
 
@@ -66,7 +52,7 @@ module.exports = function(app) {
     passport.use(new Strategy({
             consumerKey: '3YQoTNAeLXqedFytaYsm7XAqv',
             consumerSecret: 'lXebEZx5rv6ToeLeXHNX43PTsCYgQZnhBxeRwNmtC9FaQgExc5',
-            callbackURL: 'http://localhost:8080/login/twitter/return'
+            callbackURL: 'http://litterbot.herokuapp.com/login/twitter/return'
         },
         function(token, tokenSecret, profile, cb) {
             // In this example, the user's Twitter profile is supplied as the user
@@ -195,8 +181,7 @@ module.exports = function(app) {
 
     // ===========================================
 
-    app.use(fileUpload());
-
+    
 
     app.post('/api/eventscreated', function(req, res) {
 
@@ -208,7 +193,17 @@ module.exports = function(app) {
             res.json(data);
         })
 
+        var params = { status: eventCreated.eventName + "\n" + eventCreated.addressOne + "\n" + eventCreated.city + "\n" + eventCreated.cleanupDate +
+                     "\n" + eventCreated.cleanupTime }
+
+        T.post('statuses/update', params, function(err, data, response) {
+            console.log(data)
+        })
+
     });
+
+
+    app.use(fileUpload());
 
     app.post('/upload', function(req, res) {
 
@@ -219,9 +214,6 @@ module.exports = function(app) {
         orm.addCleanup(cleanup, function(data) {
             // res.send("Post request to database");
         });
-
-
-        // var app = express();
 
         // default options 
 
@@ -240,7 +232,7 @@ module.exports = function(app) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.send('File uploaded!');
+                res.sendFile(path.join(__dirname, "/../../public/upload.html"));
             }
             setTimeout(tweetContent, 10000);
             // Delete the image after 24 hours
@@ -258,7 +250,7 @@ module.exports = function(app) {
                 T.post('media/metadata/create', meta_params, function(err, data, response) {
                     if (!err) {
                         // now we can reference the media and post a tweet (media will attach to the tweet) 
-                        var params = { status: cleanup.description, media_ids: [mediaIdStr] }
+                        var params = { status: cleanup.location + "\n" + cleanup.description, media_ids: [mediaIdStr] }
 
                         T.post('statuses/update', params, function(err, data, response) {
                             console.log(data)
@@ -284,15 +276,12 @@ module.exports = function(app) {
         var newUser = req.body;
         if (!newUser.first_name || !newUser.last_name || !newUser.email || !newUser.user_name || !newUser.password) {
             res.redirect("/login");
-        }
-        else{
+        } else {
             orm.addUser(newUser);
-            res.redirect("/home")    
+            res.redirect("/home")
         }
-        
+
     });
-
-
 
 
 }
